@@ -2,10 +2,7 @@ package de.False.BuildersWand;
 
 import de.False.BuildersWand.ConfigurationFiles.Config;
 import de.False.BuildersWand.ConfigurationFiles.Locales;
-import de.False.BuildersWand.Updater.Update;
-import de.False.BuildersWand.Updater.UpdateNotification;
 import de.False.BuildersWand.events.WandEvents;
-import de.False.BuildersWand.events.WandStorageEvents;
 import de.False.BuildersWand.manager.InventoryManager;
 import de.False.BuildersWand.manager.WandManager;
 import de.False.BuildersWand.utilities.Metrics;
@@ -27,7 +24,6 @@ public class Main extends JavaPlugin {
     private NMS nms = new NMS(this);
     private WandManager wandManager;
     private InventoryManager inventoryManager;
-    private Update update;
 
     @Override
     public void onEnable() {
@@ -36,8 +32,6 @@ public class Main extends JavaPlugin {
         inventoryManager = new InventoryManager(this, nms);
         try {
             Class.forName("com.google.gson.JsonParser");
-            update = new Update(this, 51577);
-            update.sendUpdateMessage();
         } catch (ClassNotFoundException e) {
             getLogger().warning("Skipping version Check, because the Gson Library couldn't be found!");
         }
@@ -64,15 +58,12 @@ public class Main extends JavaPlugin {
     }
 
     private void registerCommands() {
-        getCommand("builderswand").setExecutor(new Commands(config, wandManager, nms));
+        getCommand("builderswand").setExecutor(new Commands(config, wandManager));
     }
 
     private void registerEvents() {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new WandEvents(this, config, particleUtil, nms, wandManager, inventoryManager), this);
-        pluginManager.registerEvents(new WandStorageEvents(this, nms, wandManager, inventoryManager), this);
-        if (update != null)
-            pluginManager.registerEvents(new UpdateNotification(this, config, update), this);
     }
 
     private void loadConfigFiles() {

@@ -50,9 +50,9 @@ public class Wand {
             lore.add(MessageUtil.colorize(getDurabilityText().replace("{durability}", getDurability() + "")));
             itemMeta.setLore(lore);
         }
-        NamespacedKey uuid = new NamespacedKey(Main.plugin, "uuid");
-        buildersWand.getPersistentDataContainer().set(uuid, PersistentDataType.STRING, UUID.randomUUID().toString());
-        System.out.println("set persistent data ");
+        NamespacedKey key = new NamespacedKey(Main.plugin, "uuid");
+        String uuid = UUID.randomUUID().toString();
+        itemMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, uuid);
         buildersWand.setItemMeta(itemMeta);
 
         return buildersWand;
