@@ -96,9 +96,9 @@ public class WandEvents implements Listener {
                     Material blockType = block.getType();
                     Material blockAbove = player.getLocation().add(0, 1, 0).getBlock().getType();
                     if (
-                        ignoreList.contains(blockType)
-                        || wand == null
-                        || (!ignoreList.contains(blockAbove))
+                            ignoreList.contains(blockType)
+                                    || wand == null
+                                    || (!ignoreList.contains(blockAbove))
                     ) {
                         continue;
                     }
@@ -168,10 +168,10 @@ public class WandEvents implements Listener {
         }
 
         if (
-            !player.hasPermission("buildersWand.use")
-            || (!player.hasPermission("buildersWand.bypass") && !isAllowedToBuildForExternalPlugins(player, selection))
-            || wand.hasPermission() && !player.hasPermission(wand.getPermission())
-            || !canBuildHandlerCheck(player, selection)
+                !player.hasPermission("buildersWand.use")
+                        || (!player.hasPermission("buildersWand.bypass") && !isAllowedToBuildForExternalPlugins(player, selection))
+                        || wand.hasPermission() && !player.hasPermission(wand.getPermission())
+                        || !canBuildHandlerCheck(player, selection)
         ) {
             MessageUtil.sendMessage(player, "noPermissions");
             return;
@@ -213,7 +213,7 @@ public class WandEvents implements Listener {
                     Method m = Block.class.getMethod("setData", byte.class);
                     m.invoke(selectionBlock, blockSubId);
                 } catch (NoSuchMethodException | IllegalAccessException
-                    | InvocationTargetException e) {
+                         | InvocationTargetException e) {
                 }
             }
 
@@ -391,7 +391,7 @@ public class WandEvents implements Listener {
             lore = new ArrayList<>();
             lore.add(durabilityText);
         } else {
-            lore.set(0, durabilityText);
+            lore.set(getDurabilityRow(wandItemStack, wand), durabilityText);
         }
 
         itemMeta.setLore(lore);
@@ -504,30 +504,30 @@ public class WandEvents implements Listener {
         boolean customBlockAllowed = true;
 
         if (
-            getExternalPlugin("ItemsAdder") != null
-            && ItemsAdder.isCustomBlock(startBlock)
-            && ItemsAdder.isCustomBlock(blockToCheck)
-            && !ItemsAdder.getCustomItemName(ItemsAdder.getCustomBlock(startBlock)).equalsIgnoreCase(ItemsAdder.getCustomItemName(ItemsAdder.getCustomBlock(blockToCheck)))
+                getExternalPlugin("ItemsAdder") != null
+                        && ItemsAdder.isCustomBlock(startBlock)
+                        && ItemsAdder.isCustomBlock(blockToCheck)
+                        && !ItemsAdder.getCustomItemName(ItemsAdder.getCustomBlock(startBlock)).equalsIgnoreCase(ItemsAdder.getCustomItemName(ItemsAdder.getCustomBlock(blockToCheck)))
         ) {
             customBlockAllowed = false;
         }
 
         if (
-            startLocation.distance(checkLocation) >= wand.getMaxSize()
-            || !(startMaterial.equals(blockToCheckMaterial))
-            || startMaterial.toString().endsWith("SLAB")
-            || startMaterial.toString().endsWith("STEP")
-            || maxLocations <= selection.size()
-            || blockToCheckData != startBlockData
-            || selection.contains(blockToCheck)
-            || !ignoreList.contains(relativeBlock)
-            || whitelist.size() == 0 && blacklist.size() > 0 && blacklist.contains(startMaterial.toString())
-            || blacklist.size() == 0 && whitelist.size() > 0 && !whitelist.contains(startMaterial.toString())
-            || (!isAllowedToBuildForExternalPlugins(player, checkLocation) && !player.hasPermission("buildersWand.bypass"))
-            || !canBuildHandlerCheck(player, checkLocation)
-            || !player.hasPermission("buildersWand.use")
-            || wand.hasPermission() && !player.hasPermission(wand.getPermission())
-            || !customBlockAllowed
+                startLocation.distance(checkLocation) >= wand.getMaxSize()
+                        || !(startMaterial.equals(blockToCheckMaterial))
+                        || startMaterial.toString().endsWith("SLAB")
+                        || startMaterial.toString().endsWith("STEP")
+                        || maxLocations <= selection.size()
+                        || blockToCheckData != startBlockData
+                        || selection.contains(blockToCheck)
+                        || !ignoreList.contains(relativeBlock)
+                        || whitelist.size() == 0 && blacklist.size() > 0 && blacklist.contains(startMaterial.toString())
+                        || blacklist.size() == 0 && whitelist.size() > 0 && !whitelist.contains(startMaterial.toString())
+                        || (!isAllowedToBuildForExternalPlugins(player, checkLocation) && !player.hasPermission("buildersWand.bypass"))
+                        || !canBuildHandlerCheck(player, checkLocation)
+                        || !player.hasPermission("buildersWand.use")
+                        || wand.hasPermission() && !player.hasPermission(wand.getPermission())
+                        || !customBlockAllowed
         ) {
             return;
         }
@@ -715,10 +715,27 @@ public class WandEvents implements Listener {
         if (lore == null) {
             return wand.getDurability();
         }
-        String durabilityString = lore.get(0);
+        String durabilityString = lore.get(getDurabilityRow(wandItemStack, wand));
         durabilityString = ChatColor.stripColor(durabilityString);
         durabilityString = durabilityString.replaceAll("[^0-9]", "");
 
         return Integer.parseInt(durabilityString);
+    }
+
+    private int getDurabilityRow(ItemStack wandItemStack, Wand wand) {
+        ItemMeta itemMeta = wandItemStack.getItemMeta();
+        List<String> lore = itemMeta.getLore();
+
+        if (lore == null) {
+            return 0;
+        }
+//
+//        for (int i = 0; i < lore.size(); i++) {
+//            if (lore.get(i).contains(wand.getDurabilityText())) {
+//                return i;
+//            }
+//        }
+        // TODO 临时处理
+        return lore.size() - 1;
     }
 }

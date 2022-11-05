@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="init">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="修复法杖检测耐久度">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/Commands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/Updater/Update.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/Updater/UpdateNotification.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandStorageEvents.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/inventory/BWHolder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/items/Wand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/items/Wand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandEvents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandEvents.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +116,8 @@
       <workItem from="1667489920005" duration="1304000" />
       <workItem from="1667523040174" duration="2422000" />
       <workItem from="1667547365569" duration="1488000" />
-      <workItem from="1667551492647" duration="6047000" />
+      <workItem from="1667551492647" duration="11332000" />
+      <workItem from="1667633317291" duration="310000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667555520347</created>
@@ -132,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667555520347</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="删除更新检查&#10;修复法杖堆叠">
+      <created>1667557792859</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1667557792859</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,6 +152,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="删除更新检查&#10;修复法杖堆叠" />
+    <MESSAGE value="修复法杖检测耐久度" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复法杖检测耐久度" />
   </component>
 </project>
