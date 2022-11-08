@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="修复法杖检测耐久度">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+    <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="更新 lore 支持">
       <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/items/Wand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/items/Wand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/manager/WandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/manager/WandManager.java" afterDir="false" />
     </list>
@@ -121,7 +119,7 @@
       <workItem from="1667547365569" duration="1488000" />
       <workItem from="1667551492647" duration="11332000" />
       <workItem from="1667633317291" duration="957000" />
-      <workItem from="1667915290390" duration="5714000" />
+      <workItem from="1667915290390" duration="7589000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667555520347</created>
@@ -144,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667633663633</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="更新 lore 支持">
+      <created>1667922198611</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667922198611</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,7 +170,8 @@
     <MESSAGE value="init" />
     <MESSAGE value="删除更新检查&#10;修复法杖堆叠" />
     <MESSAGE value="修复法杖检测耐久度" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复法杖检测耐久度" />
+    <MESSAGE value="更新 lore 支持" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新 lore 支持" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

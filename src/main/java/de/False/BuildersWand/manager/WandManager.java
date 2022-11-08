@@ -3,11 +3,10 @@ package de.False.BuildersWand.manager;
 import de.False.BuildersWand.Main;
 import de.False.BuildersWand.NMS;
 import de.False.BuildersWand.items.Wand;
-import de.False.BuildersWand.utilities.MessageUtil;
+import dev.lone.itemsadder.api.CustomStack;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,7 +16,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +44,7 @@ public class WandManager {
         Wand wand = new Wand();
         String name = Objects.requireNonNull(config.getString(configPrefix + "name"));
         wand.setName(MiniMessage.miniMessage().deserialize(name).decoration(TextDecoration.ITALIC, false));
-        wand.setMaterial(Material.valueOf(config.getString(configPrefix + "material")));
+        wand.setCustomStack(CustomStack.getInstance(config.getString(configPrefix + "customStack")));
         wand.setMaxSize(config.getInt(configPrefix + "maxSize"));
         wand.setConsumeItems(config.getBoolean(configPrefix + "consumeItems"));
         wand.setDurability(config.getInt(configPrefix + "durability.amount"));
@@ -86,7 +84,7 @@ public class WandManager {
             }
 
             Component name = itemMeta.displayName();
-            if (wand.getName().equals(name) && material == wand.getMaterial()) {
+            if (wand.getName().equals(name) && material == wand.getCustomStack().getItemStack().getType()) {
                 return wand;
             }
         }
@@ -97,7 +95,6 @@ public class WandManager {
         String configPrefix = "wands.1.";
         config.options().copyDefaults(true);
         config.addDefault(configPrefix + "name", "&3Builders Wand");
-        config.addDefault(configPrefix + "material", "BLAZE_ROD");
         config.addDefault(configPrefix + "maxSize", 8);
         config.addDefault(configPrefix + "consumeItems", true);
         config.addDefault(configPrefix + "durability.amount", 130);

@@ -2,6 +2,7 @@ package de.False.BuildersWand.items;
 
 import de.False.BuildersWand.Main;
 import de.False.BuildersWand.utilities.MessageUtil;
+import dev.lone.itemsadder.api.CustomStack;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class Wand {
     private Component name;
     private List<Component> lore;
-    private Material material;
+    private CustomStack customStack;
 
     private List<String> blacklist;
     private List<String> whitelist;
@@ -41,7 +42,7 @@ public class Wand {
     }
 
     public ItemStack getRecipeResult() {
-        ItemStack buildersWand = new ItemStack(getMaterial());
+        ItemStack buildersWand = customStack.getItemStack();
         ItemMeta itemMeta = buildersWand.getItemMeta();
         itemMeta.displayName(getName());
 
@@ -66,14 +67,13 @@ public class Wand {
         this.name = name;
     }
 
-    public Material getMaterial() {
-        return material;
+    public CustomStack getCustomStack() {
+        return customStack;
     }
 
-    public void setMaterial(Material material) {
-        this.material = material;
+    public void setCustomStack(CustomStack customStack) {
+        this.customStack = customStack;
     }
-
 
     public List<String> getBlacklist() {
         return blacklist;
