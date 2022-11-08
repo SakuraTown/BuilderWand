@@ -7,6 +7,7 @@ import de.False.BuildersWand.utilities.MessageUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -38,8 +39,6 @@ public class WandManager {
         for (String key : configurationSection.getKeys(false)) {
             wandList.add(getWand(key));
         }
-
-        registerRecipes();
     }
 
     private Wand getWand(String key) {
@@ -63,6 +62,13 @@ public class WandManager {
         if (config.isSet(configPrefix + "permission")) {
             wand.setPermission(config.getString(configPrefix + "permission"));
         }
+
+        List<Component> lore = config.getStringList(configPrefix + "lore").stream()
+                .map(it -> MiniMessage.miniMessage().deserialize(it))
+                .map(it -> it.decoration(TextDecoration.ITALIC, false))
+                .toList();
+
+        wand.setLore(lore);
         return wand;
     }
 
@@ -97,24 +103,6 @@ public class WandManager {
         config.addDefault(configPrefix + "durability.amount", 130);
         config.addDefault(configPrefix + "durability.enabled", true);
         config.addDefault(configPrefix + "durability.text", "&5Durability: &e{durability}");
-        List<String> recipeList = new ArrayList<>();
-        recipeList.add("xxd");
-        recipeList.add("xbx");
-        recipeList.add("bxx");
-        ConfigurationSection configurationSection = config.getConfigurationSection(configPrefix + "crafting.ingredient");
-        if (configurationSection == null || configurationSection.getKeys(false).size() <= 0) {
-            config.addDefault(configPrefix + "crafting.ingredient.d", "DIAMOND");
-            config.addDefault(configPrefix + "crafting.ingredient.b", "BLAZE_ROD");
-        }
-
-        config.addDefault(configPrefix + "crafting.enabled", true);
-        config.addDefault(configPrefix + "crafting.shapeless", false);
-        config.addDefault(configPrefix + "crafting.recipe", recipeList);
-        config.addDefault(configPrefix + "particles.enabled", true);
-        config.addDefault(configPrefix + "particles.type", nms.getDefaultParticle());
-        config.addDefault(configPrefix + "particles.count", 3);
-        config.addDefault(configPrefix + "storage.enabled", true);
-        config.addDefault(configPrefix + "storage.size", 27);
         save();
     }
 
@@ -122,19 +110,6 @@ public class WandManager {
         config = YamlConfiguration.loadConfiguration(file);
         addDefault();
         loadWands();
-    }
-
-    private HashMap<String, Material> getIngredientList(String key) {
-        String configPrefix = "wands." + key + ".";
-        HashMap<String, Material> ingredientList = new HashMap<>();
-
-        ConfigurationSection configurationSection = config.getConfigurationSection(configPrefix + "crafting.ingredient");
-        for (String ingredientShortcut : configurationSection.getKeys(false)) {
-            String materialString = config.getString(configPrefix + "crafting.ingredient." + ingredientShortcut);
-            ingredientList.put(ingredientShortcut, Material.valueOf(materialString));
-        }
-
-        return ingredientList;
     }
 
     private void registerRecipes() {

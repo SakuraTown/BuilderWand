@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="修复法杖检测耐久度">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandEvents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandEvents.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/items/Wand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/items/Wand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/manager/WandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/manager/WandManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,19 +39,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/EnTIv/Desktop/project/plugin/BuilderWand/src/main/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/EnTIv/Desktop/project/plugin/BuilderWand/src/main/resources",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "File.Encoding"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\EnTIv\Desktop\project\plugin\BuilderWand\src\main\resources" />
@@ -117,7 +120,8 @@
       <workItem from="1667523040174" duration="2422000" />
       <workItem from="1667547365569" duration="1488000" />
       <workItem from="1667551492647" duration="11332000" />
-      <workItem from="1667633317291" duration="310000" />
+      <workItem from="1667633317291" duration="957000" />
+      <workItem from="1667915290390" duration="5714000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667555520347</created>
@@ -133,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667557792859</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="修复法杖检测耐久度">
+      <created>1667633663633</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1667633663633</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,5 +166,9 @@
     <MESSAGE value="删除更新检查&#10;修复法杖堆叠" />
     <MESSAGE value="修复法杖检测耐久度" />
     <option name="LAST_COMMIT_MESSAGE" value="修复法杖检测耐久度" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

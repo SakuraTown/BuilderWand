@@ -1,7 +1,6 @@
 package de.False.BuildersWand.items;
 
 import de.False.BuildersWand.Main;
-import de.False.BuildersWand.NMS;
 import de.False.BuildersWand.utilities.MessageUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -17,6 +16,7 @@ import java.util.UUID;
 
 public class Wand {
     private Component name;
+    private List<Component> lore;
     private Material material;
 
     private List<String> blacklist;
@@ -45,11 +45,11 @@ public class Wand {
         ItemMeta itemMeta = buildersWand.getItemMeta();
         itemMeta.displayName(getName());
 
-        if (isDurabilityEnabled()) {
-            List<String> lore = new ArrayList<>();
-            lore.add(MessageUtil.colorize(getDurabilityText().replace("{durability}", getDurability() + "")));
-            itemMeta.setLore(lore);
-        }
+        List<Component> copy = new ArrayList<>(lore);
+        String content = MessageUtil.colorize(getDurabilityText().replace("{durability}", getDurability() + ""));
+        copy.add(Component.text(content));
+        itemMeta.lore(copy);
+
         NamespacedKey key = new NamespacedKey(Main.plugin, "uuid");
         String uuid = UUID.randomUUID().toString();
         itemMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, uuid);
@@ -173,5 +173,13 @@ public class Wand {
 
     public boolean hasPermission() {
         return getPermission().length() > 0;
+    }
+
+    public List<Component> getLore() {
+        return lore;
+    }
+
+    public void setLore(List<Component> lore) {
+        this.lore = lore;
     }
 }

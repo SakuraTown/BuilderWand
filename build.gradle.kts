@@ -99,10 +99,6 @@ tasks {
         options.encoding = Charsets.UTF_8.name()
     }
     processResources {
-        filteringCharset = Charsets.UTF_8.name()
-    }
-
-    processResources {
         filesMatching("plugin.yml") {
             expand(
                 "name" to rootProject.name,
@@ -110,6 +106,7 @@ tasks {
                 "author" to "SakuraTown"
             )
         }
+        filteringCharset = Charsets.UTF_8.name()
     }
 
     test {
