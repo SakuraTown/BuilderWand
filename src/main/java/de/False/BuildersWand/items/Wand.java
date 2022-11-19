@@ -31,6 +31,7 @@ public class Wand {
     private boolean consumeItems;
     private int maxSize;
 
+    private int tier;
     private boolean durabilityEnabled;
     private int durability;
     private String durabilityText;
@@ -181,5 +182,14 @@ public class Wand {
 
     public void setLore(List<Component> lore) {
         this.lore = lore;
+    }
+
+
+    public int getTier() {
+        return tier;
+    }
+
+    public void setTier(int tier) {
+        this.tier = tier;
     }
 }

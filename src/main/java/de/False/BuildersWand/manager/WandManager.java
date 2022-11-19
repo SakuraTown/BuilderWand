@@ -44,6 +44,7 @@ public class WandManager {
         Wand wand = new Wand();
         String name = Objects.requireNonNull(config.getString(configPrefix + "name"));
         wand.setName(MiniMessage.miniMessage().deserialize(name).decoration(TextDecoration.ITALIC, false));
+        wand.setTier(Integer.parseInt(key));
         wand.setCustomStack(CustomStack.getInstance(config.getString(configPrefix + "customStack")));
         wand.setMaxSize(config.getInt(configPrefix + "maxSize"));
         wand.setConsumeItems(config.getBoolean(configPrefix + "consumeItems"));
@@ -74,6 +75,11 @@ public class WandManager {
         for (Wand wand : wandList) {
             if (itemStack == null) {
                 return null;
+            }
+
+            if (wand.getCustomStack() == null) {
+                String configPrefix = "wands." + wand.getTier() + ".";
+                wand.setCustomStack(CustomStack.getInstance(config.getString(configPrefix + "customStack")));
             }
 
             Material material = itemStack.getType();
