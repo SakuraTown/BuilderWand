@@ -12,6 +12,7 @@ import de.False.BuildersWand.manager.InventoryManager;
 import de.False.BuildersWand.manager.WandManager;
 import de.False.BuildersWand.utilities.MessageUtil;
 import de.False.BuildersWand.utilities.ParticleUtil;
+import dev.lone.itemsadder.api.CustomBlock;
 import dev.lone.itemsadder.api.CustomStack;
 import dev.lone.itemsadder.api.ItemsAdder;
 import net.coreprotect.CoreProtect;
@@ -501,19 +502,7 @@ public class WandEvents implements Listener {
         List<String> blacklist = wand.getBlacklist();
         List<String> whitelist = wand.getWhitelist();
 
-        boolean customBlockAllowed = true;
-
-        if (
-                getExternalPlugin("ItemsAdder") != null
-                        && ItemsAdder.isCustomBlock(startBlock)
-                        && ItemsAdder.isCustomBlock(blockToCheck)
-                        && !ItemsAdder.getCustomItemName(ItemsAdder.getCustomBlock(startBlock)).equalsIgnoreCase(ItemsAdder.getCustomItemName(ItemsAdder.getCustomBlock(blockToCheck)))
-        ) {
-            customBlockAllowed = false;
-        }
-
-        if (
-                startLocation.distance(checkLocation) >= wand.getMaxSize()
+        if (startLocation.distance(checkLocation) >= wand.getMaxSize()
                         || !(startMaterial.equals(blockToCheckMaterial))
                         || startMaterial.toString().endsWith("SLAB")
                         || startMaterial.toString().endsWith("STEP")
@@ -527,8 +516,15 @@ public class WandEvents implements Listener {
                         || !canBuildHandlerCheck(player, checkLocation)
                         || !player.hasPermission("buildersWand.use")
                         || wand.hasPermission() && !player.hasPermission(wand.getPermission())
-                        || !customBlockAllowed
         ) {
+            return;
+        }
+
+        if (startMaterial.toString().contains("SHULKER_BOX")) {
+            return;
+        }
+
+        if (!startMaterial.isBlock()) {
             return;
         }
 
