@@ -76,6 +76,7 @@ public class WandEvents implements Listener {
         Set<Material> ignoreBlockTypes = new HashSet<>(Arrays.asList(Material.WATER, Material.LAVA));
         ignoreBlockTypes.addAll(nms.getAirMaterials());
 
+        //TODO 用 luck 的 bucket 再次优化
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             blockSelection.clear();
             tmpReplacements.clear();
@@ -124,7 +125,7 @@ public class WandEvents implements Listener {
                     });
                 }
             }
-        }, 0L, 2);
+        }, 0L, 10);
     }
 
     @EventHandler

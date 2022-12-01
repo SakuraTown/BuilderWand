@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="修复建筑法杖吞潜影盒物品的问题&#10;修复建筑法杖能复制火把等奇怪物品的问题">
-      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="异步粒子发送，防止卡服">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandEvents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandEvents.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -131,7 +127,7 @@
       <workItem from="1668871228863" duration="1023000" />
       <workItem from="1668924183349" duration="594000" />
       <workItem from="1669617713063" duration="302000" />
-      <workItem from="1669870013760" duration="337000" />
+      <workItem from="1669870013760" duration="1399000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667555520347</created>
@@ -168,7 +164,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667924332019</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="异步粒子发送，防止卡服">
+      <created>1669870378419</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1669870378419</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,7 +206,8 @@
     <MESSAGE value="修复法杖检测耐久度" />
     <MESSAGE value="更新 lore 支持" />
     <MESSAGE value="支持 itemsadder" />
-    <option name="LAST_COMMIT_MESSAGE" value="支持 itemsadder" />
+    <MESSAGE value="异步粒子发送，防止卡服" />
+    <option name="LAST_COMMIT_MESSAGE" value="异步粒子发送，防止卡服" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
