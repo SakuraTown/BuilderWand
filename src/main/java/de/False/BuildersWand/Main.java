@@ -40,21 +40,6 @@ public class Main extends JavaPlugin {
         particleUtil = new ParticleUtil(nms, config);
         registerEvents();
         registerCommands();
-        loadMetrics();
-    }
-
-    private void loadMetrics() {
-        Metrics metrics = new Metrics(this);
-
-        metrics.addCustomChart(new Metrics.MultiLineChart("players_and_servers", new Callable<Map<String, Integer>>() {
-            @Override
-            public Map<String, Integer> call() {
-                Map<String, Integer> valueMap = new HashMap<>();
-                valueMap.put("servers", 1);
-                valueMap.put("players", Bukkit.getOnlinePlayers().size());
-                return valueMap;
-            }
-        }));
     }
 
     private void registerCommands() {

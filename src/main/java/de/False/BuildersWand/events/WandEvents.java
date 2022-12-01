@@ -12,7 +12,6 @@ import de.False.BuildersWand.manager.InventoryManager;
 import de.False.BuildersWand.manager.WandManager;
 import de.False.BuildersWand.utilities.MessageUtil;
 import de.False.BuildersWand.utilities.ParticleUtil;
-import dev.lone.itemsadder.api.CustomBlock;
 import dev.lone.itemsadder.api.CustomStack;
 import dev.lone.itemsadder.api.ItemsAdder;
 import net.coreprotect.CoreProtect;
@@ -52,10 +51,10 @@ public class WandEvents implements Listener {
     private NMS nms;
     private WandManager wandManager;
     private InventoryManager inventoryManager;
-    private HashMap<Block, List<Block>> blockSelection = new HashMap<Block, List<Block>>();
-    private HashMap<Block, List<Block>> replacements = new HashMap<Block, List<Block>>();
-    private HashMap<Block, List<Block>> tmpReplacements = new HashMap<Block, List<Block>>();
-    public static ArrayList<canBuildHandler> canBuildHandlers = new ArrayList<canBuildHandler>();
+    private HashMap<Block, List<Block>> blockSelection = new HashMap<>();
+    private HashMap<Block, List<Block>> replacements = new HashMap<>();
+    private HashMap<Block, List<Block>> tmpReplacements = new HashMap<>();
+    public static ArrayList<canBuildHandler> canBuildHandlers = new ArrayList<>();
     private List<Material> ignoreList = new ArrayList<>();
 
     public WandEvents(Main plugin, Config config, ParticleUtil particleUtil, NMS nms, WandManager wandManager, InventoryManager inventoryManager) {
@@ -77,67 +76,55 @@ public class WandEvents implements Listener {
         Set<Material> ignoreBlockTypes = new HashSet<>(Arrays.asList(Material.WATER, Material.LAVA));
         ignoreBlockTypes.addAll(nms.getAirMaterials());
 
-        Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
-            @Override
-            public void run() {
-                blockSelection.clear();
-                tmpReplacements.clear();
-                for (Player player : Bukkit.getOnlinePlayers()) {
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            blockSelection.clear();
+            tmpReplacements.clear();
+            for (Player player : Bukkit.getOnlinePlayers()) {
 
-                    ItemStack mainHand = nms.getItemInHand(player);
-                    Wand wand = wandManager.getWand(mainHand);
+                ItemStack mainHand = nms.getItemInHand(player);
+                Wand wand = wandManager.getWand(mainHand);
 
-                    Block block;
-                    try {
-                        block = player.getTargetBlock(ignoreBlockTypes, 5);
-                    } catch (Exception e) {
-                        continue;
-                    }
+                Block block;
+                try {
+                    block = player.getTargetBlock(ignoreBlockTypes, 5);
+                } catch (Exception e) {
+                    continue;
+                }
 
-                    Material blockType = block.getType();
-                    Material blockAbove = player.getLocation().add(0, 1, 0).getBlock().getType();
-                    if (
-                            ignoreList.contains(blockType)
-                                    || wand == null
-                                    || (!ignoreList.contains(blockAbove))
-                    ) {
-                        continue;
-                    }
+                Material blockType = block.getType();
+                Material blockAbove = player.getLocation().add(0, 1, 0).getBlock().getType();
+                if (ignoreList.contains(blockType)
+                        || wand == null
+                        || (!ignoreList.contains(blockAbove))
+                ) {
+                    continue;
+                }
 
-                    List<Block> lastBlocks = player.getLastTwoTargetBlocks(ignoreBlockTypes, 5);
-                    if (lastBlocks.size() < 2) {
-                        continue;
-                    }
+                List<Block> lastBlocks = player.getLastTwoTargetBlocks(ignoreBlockTypes, 5);
+                if (lastBlocks.size() < 2) {
+                    continue;
+                }
 
-                    BlockFace blockFace = lastBlocks.get(1).getFace(lastBlocks.get(0));
-                    Block blockNext = block.getRelative(blockFace);
-                    if (blockNext == null) {
-                        continue;
-                    }
+                BlockFace blockFace = lastBlocks.get(1).getFace(lastBlocks.get(0));
 
-                    int itemCount = 0;
-                    if (getExternalPlugin("ItemsAdder") != null && ItemsAdder.isCustomBlock(block)) {
-                        ItemStack customBlockItemStack = ItemsAdder.getCustomBlock(block);
-                        itemCount = getCustomBlockCount(player, block, mainHand, customBlockItemStack);
-                    } else {
-                        itemCount = getItemCount(player, block, mainHand);
-                    }
+                int itemCount = getItemCount(player, block, mainHand);
 
-                    blockSelection.put(block, new ArrayList<>());
-                    tmpReplacements.put(block, new ArrayList<>());
+                blockSelection.put(block, new ArrayList<>());
+                tmpReplacements.put(block, new ArrayList<>());
 
-                    setBlockSelection(player, blockFace, itemCount, block, block, wand);
-                    replacements = tmpReplacements;
-                    List<Block> selection = blockSelection.get(block);
+                setBlockSelection(player, blockFace, itemCount, block, block, wand);
+                replacements = tmpReplacements;
+                List<Block> selection = blockSelection.get(block);
 
-                    if (wand.isParticleEnabled()) {
+                if (wand.isParticleEnabled()) {
+                    Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                         for (Block selectionBlock : selection) {
                             renderBlockOutlines(blockFace, selectionBlock, selection, wand, player);
                         }
-                    }
+                    });
                 }
             }
-        }, 0L, config.getRenderTime());
+        }, 0L, 2);
     }
 
     @EventHandler
@@ -503,19 +490,19 @@ public class WandEvents implements Listener {
         List<String> whitelist = wand.getWhitelist();
 
         if (startLocation.distance(checkLocation) >= wand.getMaxSize()
-                        || !(startMaterial.equals(blockToCheckMaterial))
-                        || startMaterial.toString().endsWith("SLAB")
-                        || startMaterial.toString().endsWith("STEP")
-                        || maxLocations <= selection.size()
-                        || blockToCheckData != startBlockData
-                        || selection.contains(blockToCheck)
-                        || !ignoreList.contains(relativeBlock)
-                        || whitelist.size() == 0 && blacklist.size() > 0 && blacklist.contains(startMaterial.toString())
-                        || blacklist.size() == 0 && whitelist.size() > 0 && !whitelist.contains(startMaterial.toString())
-                        || (!isAllowedToBuildForExternalPlugins(player, checkLocation) && !player.hasPermission("buildersWand.bypass"))
-                        || !canBuildHandlerCheck(player, checkLocation)
-                        || !player.hasPermission("buildersWand.use")
-                        || wand.hasPermission() && !player.hasPermission(wand.getPermission())
+                || !(startMaterial.equals(blockToCheckMaterial))
+                || startMaterial.toString().endsWith("SLAB")
+                || startMaterial.toString().endsWith("STEP")
+                || maxLocations <= selection.size()
+                || blockToCheckData != startBlockData
+                || selection.contains(blockToCheck)
+                || !ignoreList.contains(relativeBlock)
+                || whitelist.size() == 0 && blacklist.size() > 0 && blacklist.contains(startMaterial.toString())
+                || blacklist.size() == 0 && whitelist.size() > 0 && !whitelist.contains(startMaterial.toString())
+                || (!isAllowedToBuildForExternalPlugins(player, checkLocation) && !player.hasPermission("buildersWand.bypass"))
+                || !canBuildHandlerCheck(player, checkLocation)
+                || !player.hasPermission("buildersWand.use")
+                || wand.hasPermission() && !player.hasPermission(wand.getPermission())
         ) {
             return;
         }
@@ -524,7 +511,7 @@ public class WandEvents implements Listener {
             return;
         }
 
-        if (!startMaterial.isBlock()) {
+        if (!startMaterial.isSolid()) {
             return;
         }
 

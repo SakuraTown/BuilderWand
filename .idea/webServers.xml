@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2f105bb7-da7b-4e42-bf13-88f0a53e70d1" name="sakuratown">
+        <fileTransfer accessType="SFTP" host="node1.js.giao.me" port="22357" sshConfigId="b7911eb1-67cc-4dce-88e8-00781a8d174e" sshConfig="sakuratown">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
