@@ -3,10 +3,6 @@ package de.False.BuildersWand.manager;
 import de.False.BuildersWand.Main;
 import de.False.BuildersWand.NMS;
 import de.False.BuildersWand.items.Wand;
-import dev.lone.itemsadder.api.CustomStack;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,6 +22,8 @@ public class WandManager {
     private NMS nms;
 
     public WandManager(Main plugin, NMS nms) {
+        plugin.saveResource("wands.yml", false);
+
         this.file = new File(plugin.getDataFolder(), "wands.yml");
         this.nms = nms;
     }
@@ -43,14 +41,8 @@ public class WandManager {
         String configPrefix = "wands." + key + ".";
         Wand wand = new Wand();
         String name = Objects.requireNonNull(config.getString(configPrefix + "name"));
-        wand.setName(MiniMessage.miniMessage().deserialize(name).decoration(TextDecoration.ITALIC, false));
+        wand.setName(name);
         wand.setTier(Integer.parseInt(key));
-        String customStack = config.getString(configPrefix + "customStack");
-
-        if (customStack != null) {
-            wand.setCustomStack(CustomStack.getInstance(customStack));
-        }
-
         String material = config.getString(configPrefix + "material");
 
         if (material != null) {
@@ -73,10 +65,7 @@ public class WandManager {
             wand.setPermission(config.getString(configPrefix + "permission"));
         }
 
-        List<Component> lore = config.getStringList(configPrefix + "lore").stream()
-                .map(it -> MiniMessage.miniMessage().deserialize(it))
-                .map(it -> it.decoration(TextDecoration.ITALIC, false))
-                .toList();
+        List<String> lore = config.getStringList(configPrefix + "lore");
 
         wand.setLore(lore);
         return wand;
@@ -101,7 +90,7 @@ public class WandManager {
                 return null;
             }
 
-            Component name = itemMeta.displayName();
+            String name = itemMeta.getDisplayName();
             if (wand.getName().equals(name)) {
                 return wand;
             }
@@ -109,21 +98,10 @@ public class WandManager {
         return null;
     }
 
-    private void addDefault() {
-        String configPrefix = "wands.1.";
-        config.options().copyDefaults(true);
-        config.addDefault(configPrefix + "name", "&3Builders Wand");
-        config.addDefault(configPrefix + "maxSize", 8);
-        config.addDefault(configPrefix + "consumeItems", true);
-        config.addDefault(configPrefix + "durability.amount", 130);
-        config.addDefault(configPrefix + "durability.enabled", true);
-        config.addDefault(configPrefix + "durability.text", "&5Durability: &e{durability}");
-        save();
-    }
+
 
     public void load() {
         config = YamlConfiguration.loadConfiguration(file);
-        addDefault();
         loadWands();
     }
 

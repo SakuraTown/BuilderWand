@@ -1,24 +1,19 @@
 package de.False.BuildersWand.items;
 
-import de.False.BuildersWand.Main;
 import de.False.BuildersWand.utilities.MessageUtil;
-import dev.lone.itemsadder.api.CustomStack;
-import net.kyori.adventure.text.Component;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Wand {
-    private Component name;
-    private List<Component> lore;
-    private CustomStack customStack;
+    private String name;
+    private List<String> lore;
     private Material material;
 
     private List<String> blacklist;
@@ -46,42 +41,28 @@ public class Wand {
     public ItemStack getRecipeResult() {
         ItemStack buildersWand;
 
-        if (customStack != null) {
-            buildersWand = customStack.getItemStack();
-        } else {
-            buildersWand = new ItemStack(material);
-        }
+        buildersWand = new ItemStack(material);
 
         ItemMeta itemMeta = buildersWand.getItemMeta();
-        itemMeta.displayName(getName());
+        itemMeta.setDisplayName(getName());
 
-        List<Component> copy = new ArrayList<>(lore);
+        List<String> copy = new ArrayList<>(lore);
         String content = MessageUtil.colorize(getDurabilityText().replace("{durability}", getDurability() + ""));
-        copy.add(Component.text(content));
-        itemMeta.lore(copy);
+        copy.add(content);
+        itemMeta.setLore(copy);
 
-        NamespacedKey key = new NamespacedKey(Main.plugin, "uuid");
-        String uuid = UUID.randomUUID().toString();
-        itemMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, uuid);
+        //TODO NBT API 写UUID 防止堆叠
         buildersWand.setItemMeta(itemMeta);
 
         return buildersWand;
     }
 
-    public Component getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Component name) {
-        this.name = name;
-    }
-
-    public CustomStack getCustomStack() {
-        return customStack;
-    }
-
-    public void setCustomStack(CustomStack customStack) {
-        this.customStack = customStack;
+    public void setName(String name) {
+        this.name = ChatColor.translateAlternateColorCodes('&', name);
     }
 
     public List<String> getBlacklist() {
@@ -184,12 +165,14 @@ public class Wand {
         return getPermission().length() > 0;
     }
 
-    public List<Component> getLore() {
+    public List<String> getLore() {
         return lore;
     }
 
-    public void setLore(List<Component> lore) {
-        this.lore = lore;
+    public void setLore(List<String> lore) {
+        this.lore = lore.stream().map( it ->
+                ChatColor.translateAlternateColorCodes('&', it)
+        ).collect(Collectors.toList());
     }
 
 

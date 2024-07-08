@@ -1,0 +1,41 @@
+wands:
+  '1':
+    name: '&e初级建筑法杖'
+    maxSize: 3
+    consumeItems: true
+    durability:
+      amount: 2000
+      enabled: true
+      text: '&7耐久度: &e{durability}'
+    material: BLAZE_ROD
+    lore:
+      - ''
+      - '&7准备所需材料后'
+      - '&7对准需要复制的方块右键'
+      - ''
+      - '&7范围:&e 6'
+    customStack: builder_wand_1
+    particles:
+      enabled: true
+      type: WATERDRIP
+      count: 3
+  '2':
+    name: '&e中级建筑法杖'
+    maxSize: 5
+    consumeItems: true
+    durability:
+      amount: 2000
+      enabled: true
+      text: '&7耐久度: &e{durability}'
+    material: BLAZE_ROD
+    lore:
+      - ''
+      - '&7准备所需材料后'
+      - '&7对准需要复制的方块右键'
+      - ''
+      - '&7范围:&e 6'
+    customStack: builder_wand_1
+    particles:
+      enabled: true
+      type: WATERDRIP
+      count: 3

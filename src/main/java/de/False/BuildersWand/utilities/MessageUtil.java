@@ -47,9 +47,9 @@ public class MessageUtil {
     }
 
     private static String getPlayerLocale(CommandSender player) {
-        if (player instanceof Player) {
-            return ((Player) player).getLocale();
-        }
+//        if (player instanceof Player) {
+//            return ((Player) player).getLocale();
+//        }
 
         return defaultLocale;
     }

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.entiv"
-version = "1.1.3"
+version = "1.8"
 
 repositories {
     mavenCentral()
@@ -66,19 +66,19 @@ repositories {
 }
 
 dependencies {
-    implementation("org.bstats:bstats-bukkit:3.0.0")
+//    implementation("org.bstats:bstats-bukkit:3.0.0")
 
     compileOnly(kotlin("stdlib-jdk8"))
     compileOnly(kotlin("reflect"))
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+//    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     compileOnly("me.clip:placeholderapi:2.11.0")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly("com.github.LoneDev6:api-itemsadder:3.0.0")
-    compileOnly("org.purpurmc.purpur:purpur-api:1.19.2-R0.1-SNAPSHOT")
+//    compileOnly("org.purpurmc.purpur:purpur-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.1-SNAPSHOT")
-    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.0.1-SNAPSHOT")
+//    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.0.1-SNAPSHOT")
     compileOnly("net.coreprotect:coreprotect:2.14.2")
-//    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
     compileOnly(fileTree("libs"))
 }
 
@@ -99,7 +99,6 @@ tasks {
 
     compileJava {
         options.encoding = Charsets.UTF_8.name()
-        options.release.set(17)
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()
@@ -143,5 +142,5 @@ publishing {
 java {
     withSourcesJar()
     withJavadocJar()
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
 }

@@ -37,10 +37,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.Plugin;
-import world.bentobox.bentobox.BentoBox;
-import world.bentobox.bentobox.api.user.User;
-import world.bentobox.bentobox.database.objects.Island;
-import world.bentobox.bentobox.lists.Flags;
+//import world.bentobox.bentobox.BentoBox;
+//import world.bentobox.bentobox.api.user.User;
+//import world.bentobox.bentobox.database.objects.Island;
+//import world.bentobox.bentobox.lists.Flags;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -404,7 +404,7 @@ public class WandEvents implements Listener {
                 HashMap<Integer, ItemStack> didntRemovedItems = inventory.removeItem(inventoryItemStack);
 
                 if (didntRemovedItems.size() == 1) {
-                    player.getInventory().setItemInOffHand(null);
+//                    player.getInventory().setItemInOffHand(null);
                 }
 
                 amount -= itemAmount;
@@ -455,9 +455,9 @@ public class WandEvents implements Listener {
             if (amount >= itemAmount) {
                 HashMap<Integer, ItemStack> didntRemovedItems = inventory.removeItem(inventoryItemStack);
 
-                if (didntRemovedItems.size() == 1) {
-                    player.getInventory().setItemInOffHand(null);
-                }
+//                if (didntRemovedItems.size() == 1) {
+//                    player.getInventory().setItemInOffHand(null);
+//                }
 
                 amount -= itemAmount;
                 player.updateInventory();
@@ -632,13 +632,13 @@ public class WandEvents implements Listener {
             }
         }
 
-        Plugin bentoBox = getExternalPlugin("BentoBox");
-        if (bentoBox != null) {
-            BentoBox bentoBoxapi = BentoBox.getInstance();
-            User user = User.getInstance(player);
-            Optional<Island> island = bentoBoxapi.getIslands().getIslandAt(location);
-            return island.isEmpty() || island.get().isAllowed(user, Flags.PLACE_BLOCKS);
-        }
+//        Plugin bentoBox = getExternalPlugin("BentoBox");
+//        if (bentoBox != null) {
+//            BentoBox bentoBoxapi = BentoBox.getInstance();
+//            User user = User.getInstance(player);
+//            Optional<Island> island = bentoBoxapi.getIslands().getIslandAt(location);
+//            return island.isEmpty() || island.get().isAllowed(user, Flags.PLACE_BLOCKS);
+//        }
 
         return true;
     }
@@ -653,17 +653,17 @@ public class WandEvents implements Listener {
             }
         }
 
-        Plugin bentoBox = getExternalPlugin("BentoBox");
-        if (bentoBox != null) {
-            BentoBox bentoBoxapi = BentoBox.getInstance();
-            User user = User.getInstance(player);
-            for (Block selectionBlock : selection) {
-                Optional<Island> island = bentoBoxapi.getIslands().getIslandAt(selectionBlock.getLocation());
-                if (island.isPresent() && !island.get().isAllowed(user, Flags.PLACE_BLOCKS)) {
-                    return false;
-                }
-            }
-        }
+//        Plugin bentoBox = getExternalPlugin("BentoBox");
+//        if (bentoBox != null) {
+//            BentoBox bentoBoxapi = BentoBox.getInstance();
+//            User user = User.getInstance(player);
+//            for (Block selectionBlock : selection) {
+//                Optional<Island> island = bentoBoxapi.getIslands().getIslandAt(selectionBlock.getLocation());
+//                if (island.isPresent() && !island.get().isAllowed(user, Flags.PLACE_BLOCKS)) {
+//                    return false;
+//                }
+//            }
+//        }
 
         Plugin residence = getExternalPlugin("residence");
 
