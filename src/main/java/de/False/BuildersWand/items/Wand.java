@@ -19,6 +19,7 @@ public class Wand {
     private Component name;
     private List<Component> lore;
     private CustomStack customStack;
+    private Material material;
 
     private List<String> blacklist;
     private List<String> whitelist;
@@ -43,7 +44,14 @@ public class Wand {
     }
 
     public ItemStack getRecipeResult() {
-        ItemStack buildersWand = customStack.getItemStack();
+        ItemStack buildersWand;
+
+        if (customStack != null) {
+            buildersWand = customStack.getItemStack();
+        } else {
+            buildersWand = new ItemStack(material);
+        }
+
         ItemMeta itemMeta = buildersWand.getItemMeta();
         itemMeta.displayName(getName());
 
@@ -191,5 +199,13 @@ public class Wand {
 
     public void setTier(int tier) {
         this.tier = tier;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 }

@@ -1,6 +1,6 @@
 plugins {
     `maven-publish`
-    kotlin("jvm") version "1.6.20"
+    kotlin("jvm") version "1.9.23"
     id("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
@@ -33,6 +33,11 @@ repositories {
     maven {
         name = "purpur"
         url = uri("https://repo.purpurmc.org/snapshots")
+    }
+
+    maven {
+        name = "spigot"
+        url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     }
 
     maven {
@@ -73,6 +78,7 @@ dependencies {
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.1-SNAPSHOT")
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.0.1-SNAPSHOT")
     compileOnly("net.coreprotect:coreprotect:2.14.2")
+//    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
     compileOnly(fileTree("libs"))
 }
 
@@ -112,7 +118,6 @@ tasks {
     test {
         useJUnitPlatform()
     }
-
 
 }
 

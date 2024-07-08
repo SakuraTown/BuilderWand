@@ -45,7 +45,18 @@ public class WandManager {
         String name = Objects.requireNonNull(config.getString(configPrefix + "name"));
         wand.setName(MiniMessage.miniMessage().deserialize(name).decoration(TextDecoration.ITALIC, false));
         wand.setTier(Integer.parseInt(key));
-        wand.setCustomStack(CustomStack.getInstance(config.getString(configPrefix + "customStack")));
+        String customStack = config.getString(configPrefix + "customStack");
+
+        if (customStack != null) {
+            wand.setCustomStack(CustomStack.getInstance(customStack));
+        }
+
+        String material = config.getString(configPrefix + "material");
+
+        if (material != null) {
+            wand.setMaterial(Material.matchMaterial(material));
+        }
+
         wand.setMaxSize(config.getInt(configPrefix + "maxSize"));
         wand.setConsumeItems(config.getBoolean(configPrefix + "consumeItems"));
         wand.setDurability(config.getInt(configPrefix + "durability.amount"));
@@ -73,14 +84,15 @@ public class WandManager {
 
     public Wand getWand(ItemStack itemStack) {
         for (Wand wand : wandList) {
+
             if (itemStack == null) {
                 return null;
             }
 
-            if (wand.getCustomStack() == null) {
-                String configPrefix = "wands." + wand.getTier() + ".";
-                wand.setCustomStack(CustomStack.getInstance(config.getString(configPrefix + "customStack")));
-            }
+//            if (wand.getCustomStack() == null) {
+//                String configPrefix = "wands." + wand.getTier() + ".";
+//                wand.setCustomStack(CustomStack.getInstance(config.getString(configPrefix + "customStack")));
+//            }
 
             Material material = itemStack.getType();
             ItemMeta itemMeta = itemStack.getItemMeta();
@@ -90,7 +102,7 @@ public class WandManager {
             }
 
             Component name = itemMeta.displayName();
-            if (wand.getName().equals(name) && material == wand.getCustomStack().getItemStack().getType()) {
+            if (wand.getName().equals(name)) {
                 return wand;
             }
         }

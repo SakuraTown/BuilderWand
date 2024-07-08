@@ -1,5 +1,7 @@
 package de.False.BuildersWand.events;
 
+import com.bekvon.bukkit.residence.Residence;
+import com.bekvon.bukkit.residence.containers.ResidencePlayer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import de.False.BuildersWand.ConfigurationFiles.Config;
 import de.False.BuildersWand.Main;
@@ -94,10 +96,7 @@ public class WandEvents implements Listener {
 
                 Material blockType = block.getType();
                 Material blockAbove = player.getLocation().add(0, 1, 0).getBlock().getType();
-                if (ignoreList.contains(blockType)
-                        || wand == null
-                        || (!ignoreList.contains(blockAbove))
-                ) {
+                if (ignoreList.contains(blockType) || wand == null || (!ignoreList.contains(blockAbove))) {
                     continue;
                 }
 
@@ -125,7 +124,7 @@ public class WandEvents implements Listener {
                     });
                 }
             }
-        }, 0L, 10);
+        }, 0L, 5);
     }
 
     @EventHandler
@@ -156,12 +155,7 @@ public class WandEvents implements Listener {
             return;
         }
 
-        if (
-                !player.hasPermission("buildersWand.use")
-                        || (!player.hasPermission("buildersWand.bypass") && !isAllowedToBuildForExternalPlugins(player, selection))
-                        || wand.hasPermission() && !player.hasPermission(wand.getPermission())
-                        || !canBuildHandlerCheck(player, selection)
-        ) {
+        if (!player.hasPermission("buildersWand.use") || (!player.hasPermission("buildersWand.bypass") && !isAllowedToBuildForExternalPlugins(player, selection)) || wand.hasPermission() && !player.hasPermission(wand.getPermission()) || !canBuildHandlerCheck(player, selection)) {
             MessageUtil.sendMessage(player, "noPermissions");
             return;
         }
@@ -201,8 +195,7 @@ public class WandEvents implements Listener {
                 try {
                     Method m = Block.class.getMethod("setData", byte.class);
                     m.invoke(selectionBlock, blockSubId);
-                } catch (NoSuchMethodException | IllegalAccessException
-                         | InvocationTargetException e) {
+                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                 }
             }
 
@@ -490,21 +483,7 @@ public class WandEvents implements Listener {
         List<String> blacklist = wand.getBlacklist();
         List<String> whitelist = wand.getWhitelist();
 
-        if (startLocation.distance(checkLocation) >= wand.getMaxSize()
-                || !(startMaterial.equals(blockToCheckMaterial))
-                || startMaterial.toString().endsWith("SLAB")
-                || startMaterial.toString().endsWith("STEP")
-                || maxLocations <= selection.size()
-                || blockToCheckData != startBlockData
-                || selection.contains(blockToCheck)
-                || !ignoreList.contains(relativeBlock)
-                || whitelist.size() == 0 && blacklist.size() > 0 && blacklist.contains(startMaterial.toString())
-                || blacklist.size() == 0 && whitelist.size() > 0 && !whitelist.contains(startMaterial.toString())
-                || (!isAllowedToBuildForExternalPlugins(player, checkLocation) && !player.hasPermission("buildersWand.bypass"))
-                || !canBuildHandlerCheck(player, checkLocation)
-                || !player.hasPermission("buildersWand.use")
-                || wand.hasPermission() && !player.hasPermission(wand.getPermission())
-        ) {
+        if (startLocation.distance(checkLocation) >= wand.getMaxSize() || !(startMaterial.equals(blockToCheckMaterial)) || startMaterial.toString().endsWith("SLAB") || startMaterial.toString().endsWith("STEP") || maxLocations <= selection.size() || blockToCheckData != startBlockData || selection.contains(blockToCheck) || !ignoreList.contains(relativeBlock) || whitelist.size() == 0 && blacklist.size() > 0 && blacklist.contains(startMaterial.toString()) || blacklist.size() == 0 && whitelist.size() > 0 && !whitelist.contains(startMaterial.toString()) || (!isAllowedToBuildForExternalPlugins(player, checkLocation) && !player.hasPermission("buildersWand.bypass")) || !canBuildHandlerCheck(player, checkLocation) || !player.hasPermission("buildersWand.use") || wand.hasPermission() && !player.hasPermission(wand.getPermission())) {
             return;
         }
 
@@ -685,6 +664,20 @@ public class WandEvents implements Listener {
                 }
             }
         }
+
+        Plugin residence = getExternalPlugin("residence");
+
+        if (residence != null) {
+            ResidencePlayer rPlayer = Residence.getInstance().getPlayerManager().getResidencePlayer(player);
+            for (Block selectionBlock : selection) {
+                boolean canPlace = rPlayer.canPlaceBlock(selectionBlock, false);
+
+                if (!canPlace) {
+                    return false;
+                }
+            }
+        }
+
 
         return true;
     }
