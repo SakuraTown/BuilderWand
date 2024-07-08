@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="更新 1.18 功能">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/wands.yml" afterDir="false" />
+    <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="适配1.8">
+      <change afterPath="$PROJECT_DIR$/libs/worldguard-6.2.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/Commands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/NMS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/NMS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandEvents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandEvents.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/items/Wand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/items/Wand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/manager/WandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/manager/WandManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/utilities/MessageUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/utilities/MessageUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/helper/WorldGuardAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/helper/WorldGuardAPI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +106,7 @@
     "git-widget-placeholder": "1.8",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/EnTIv/Desktop/project/plugin/BuilderWand/src/main/resources",
+    "last_opened_file_path": "C:/Users/EnTIv/Desktop/project/plugin/BuilderWand/libs",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -131,8 +126,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\EnTIv\Desktop\project\plugin\BuilderWand\src\main\resources" />
       <recent name="C:\Users\EnTIv\Desktop\project\plugin\BuilderWand\libs" />
+      <recent name="C:\Users\EnTIv\Desktop\project\plugin\BuilderWand\src\main\resources" />
       <recent name="C:\Users\EnTIv\Desktop\project\plugin\BuilderWand\src\main\java" />
     </key>
   </component>
@@ -259,7 +254,7 @@
       <workItem from="1718235879047" duration="583000" />
       <workItem from="1718411328034" duration="582000" />
       <workItem from="1718508269043" duration="582000" />
-      <workItem from="1720401897985" duration="5579000" />
+      <workItem from="1720401897985" duration="8922000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667555520347</created>
@@ -318,7 +313,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720402683349</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="适配1.8">
+      <option name="closed" value="true" />
+      <created>1720407533063</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1720407533063</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,7 +359,8 @@
     <MESSAGE value="异步粒子发送，防止卡服" />
     <MESSAGE value="update" />
     <MESSAGE value="更新 1.18 功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新 1.18 功能" />
+    <MESSAGE value="适配1.8" />
+    <option name="LAST_COMMIT_MESSAGE" value="适配1.8" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

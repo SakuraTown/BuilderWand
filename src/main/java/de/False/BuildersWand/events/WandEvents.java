@@ -627,19 +627,8 @@ public class WandEvents implements Listener {
     private boolean isAllowedToBuildForExternalPlugins(Player player, Location location) {
         Plugin worldGuardPlugin = getExternalPlugin("WorldGuard");
         if (worldGuardPlugin instanceof WorldGuardPlugin) {
-            if (!WorldGuardAPI.getWorldGuardAPI().allows(player, location)) {
-                return false;
-            }
+            return WorldGuardPlugin.inst().canBuild(player, location);
         }
-
-//        Plugin bentoBox = getExternalPlugin("BentoBox");
-//        if (bentoBox != null) {
-//            BentoBox bentoBoxapi = BentoBox.getInstance();
-//            User user = User.getInstance(player);
-//            Optional<Island> island = bentoBoxapi.getIslands().getIslandAt(location);
-//            return island.isEmpty() || island.get().isAllowed(user, Flags.PLACE_BLOCKS);
-//        }
-
         return true;
     }
 
@@ -647,7 +636,7 @@ public class WandEvents implements Listener {
         Plugin worldGuardPlugin = getExternalPlugin("WorldGuard");
         if (worldGuardPlugin instanceof WorldGuardPlugin) {
             for (Block selectionBlock : selection) {
-                if (!WorldGuardAPI.getWorldGuardAPI().allows(player, selectionBlock.getLocation())) {
+                if (!WorldGuardAPI.getWorldGuardAPI().canBuild(player, selectionBlock.getLocation())) {
                     return false;
                 }
             }
