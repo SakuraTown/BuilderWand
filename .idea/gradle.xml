@@ -4,11 +4,14 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/nms" />
+            <option value="$PROJECT_DIR$/nms-1.12.2" />
+            <option value="$PROJECT_DIR$/nms-1.18.1" />
+            <option value="$PROJECT_DIR$/nms-1.8" />
           </set>
         </option>
       </GradleProjectSettings>

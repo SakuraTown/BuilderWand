@@ -25,6 +25,7 @@ public class WorldGuardAPI {
 
             instance.version = (byte) (version != null ? version.startsWith("6") ? 6 : 7 : -1);
         }
+
         return instance;
     }
 

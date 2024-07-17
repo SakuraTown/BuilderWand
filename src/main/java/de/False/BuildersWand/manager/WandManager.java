@@ -1,8 +1,8 @@
 package de.False.BuildersWand.manager;
 
 import de.False.BuildersWand.Main;
-import de.False.BuildersWand.NMS;
 import de.False.BuildersWand.items.Wand;
+import de.False.BuildersWand.version.NMS;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;

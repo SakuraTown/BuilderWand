@@ -1,13 +1,13 @@
 package de.False.BuildersWand.manager;
 
+import de.False.BuildersWand.Commands;
 import de.False.BuildersWand.Main;
-import de.False.BuildersWand.NMS;
+import de.False.BuildersWand.version.NMS;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 

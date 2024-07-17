@@ -3,9 +3,9 @@ package de.False.BuildersWand.events;
 import com.bekvon.bukkit.residence.Residence;
 import com.bekvon.bukkit.residence.containers.ResidencePlayer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import de.False.BuildersWand.Commands;
 import de.False.BuildersWand.ConfigurationFiles.Config;
 import de.False.BuildersWand.Main;
-import de.False.BuildersWand.NMS;
 import de.False.BuildersWand.api.canBuildHandler;
 import de.False.BuildersWand.enums.ParticleShapeHidden;
 import de.False.BuildersWand.helper.WorldGuardAPI;
@@ -14,6 +14,7 @@ import de.False.BuildersWand.manager.InventoryManager;
 import de.False.BuildersWand.manager.WandManager;
 import de.False.BuildersWand.utilities.MessageUtil;
 import de.False.BuildersWand.utilities.ParticleUtil;
+import de.False.BuildersWand.version.NMS;
 import dev.lone.itemsadder.api.CustomStack;
 import dev.lone.itemsadder.api.ItemsAdder;
 import net.coreprotect.CoreProtect;
@@ -627,7 +628,7 @@ public class WandEvents implements Listener {
     private boolean isAllowedToBuildForExternalPlugins(Player player, Location location) {
         Plugin worldGuardPlugin = getExternalPlugin("WorldGuard");
         if (worldGuardPlugin instanceof WorldGuardPlugin) {
-            return WorldGuardPlugin.inst().canBuild(player, location);
+            return WorldGuardAPI.getWorldGuardAPI().canBuild(player, location);
         }
         return true;
     }

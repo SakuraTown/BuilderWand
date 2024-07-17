@@ -1,4 +1,4 @@
-package de.False.BuildersWand;
+package de.False.BuildersWand.version;
 
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -10,15 +10,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class NMS {
+public class v_1_8_R1 implements NMS {
     private JavaPlugin plugin;
     private Random random;
 
-    public NMS(JavaPlugin plugin) {
+    public v_1_8_R1(JavaPlugin plugin) {
         this.plugin = plugin;
         this.random = new Random();
     }
@@ -28,7 +27,7 @@ public class NMS {
     }
 
     public void spawnParticle(String particle, Location location, Player player) {
-        player.playEffect(location, Effect.valueOf(particle),null);
+        player.playEffect(location, Effect.valueOf(particle), null);
     }
 
     public ItemStack getItemInHand(Player player) {
@@ -42,10 +41,6 @@ public class NMS {
     public String getDefaultParticle() {
         return Effect.FLAME.toString();
     }
-
-    public void addShapedRecipe(List<String> recipeStrings, HashMap<String, Material> ingredients, ItemStack resultItemStack) {
-    }
-
 
     public Block setBlockData(Block against, Block SelectionBlock) {
         return SelectionBlock;

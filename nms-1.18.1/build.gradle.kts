@@ -74,76 +74,30 @@ dependencies {
     compileOnly("me.clip:placeholderapi:2.11.0")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly("com.github.LoneDev6:api-itemsadder:3.0.0")
-//    compileOnly("org.purpurmc.purpur:purpur-api:1.19.2-R0.1-SNAPSHOT")
+    compileOnly("org.purpurmc.purpur:purpur-api:1.19.2-R0.1-SNAPSHOT")
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.1-SNAPSHOT")
 //    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.0.1-SNAPSHOT")
     compileOnly("net.coreprotect:coreprotect:2.14.2")
-    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
-    implementation(project(":nms"))
-    implementation(project(":nms-1.8"))
-    implementation(project(":nms-1.12.2"))
+//    compileOnly("org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT")
     compileOnly(fileTree("libs"))
+    implementation(project(":nms"))
 }
 
 tasks {
-    shadowJar {
-        project.findProperty("outputPath")?.let {
-            destinationDirectory.set(file(it.toString()))
-        }
-        archiveFileName.set("${project.name}-${project.version}.jar")
-    }
-
-    jar {
-        project.findProperty("outputPath")?.let {
-            destinationDirectory.set(file(it.toString()))
-        }
-        archiveFileName.set("${project.name}-${project.version}.jar")
-    }
-
     compileJava {
         options.encoding = Charsets.UTF_8.name()
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()
     }
-    processResources {
-        filesMatching("plugin.yml") {
-            expand(
-                "name" to rootProject.name,
-                "version" to project.version,
-                "author" to "SakuraTown"
-            )
-        }
-        filteringCharset = Charsets.UTF_8.name()
-    }
-
     test {
         useJUnitPlatform()
     }
 
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/sakuratown/insekicore")
-            credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
-    publications {
-        register<MavenPublication>("gpr") {
-            from(components["java"])
-            artifactId = project.name.toLowerCase()
-        }
-    }
-}
-
 java {
     withSourcesJar()
     withJavadocJar()
-    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }

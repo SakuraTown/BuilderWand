@@ -79,67 +79,22 @@ dependencies {
 //    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.0.1-SNAPSHOT")
     compileOnly("net.coreprotect:coreprotect:2.14.2")
     compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
-    implementation(project(":nms"))
-    implementation(project(":nms-1.8"))
-    implementation(project(":nms-1.12.2"))
     compileOnly(fileTree("libs"))
+    implementation(project(":nms"))
+
 }
 
 tasks {
-    shadowJar {
-        project.findProperty("outputPath")?.let {
-            destinationDirectory.set(file(it.toString()))
-        }
-        archiveFileName.set("${project.name}-${project.version}.jar")
-    }
-
-    jar {
-        project.findProperty("outputPath")?.let {
-            destinationDirectory.set(file(it.toString()))
-        }
-        archiveFileName.set("${project.name}-${project.version}.jar")
-    }
-
     compileJava {
         options.encoding = Charsets.UTF_8.name()
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name()
     }
-    processResources {
-        filesMatching("plugin.yml") {
-            expand(
-                "name" to rootProject.name,
-                "version" to project.version,
-                "author" to "SakuraTown"
-            )
-        }
-        filteringCharset = Charsets.UTF_8.name()
-    }
-
     test {
         useJUnitPlatform()
     }
 
-}
-
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/sakuratown/insekicore")
-            credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
-    publications {
-        register<MavenPublication>("gpr") {
-            from(components["java"])
-            artifactId = project.name.toLowerCase()
-        }
-    }
 }
 
 java {
