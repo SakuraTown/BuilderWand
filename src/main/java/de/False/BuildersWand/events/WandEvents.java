@@ -6,6 +6,7 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import de.False.BuildersWand.Commands;
 import de.False.BuildersWand.ConfigurationFiles.Config;
 import de.False.BuildersWand.Main;
+import de.False.BuildersWand.MinecraftVersion;
 import de.False.BuildersWand.api.canBuildHandler;
 import de.False.BuildersWand.enums.ParticleShapeHidden;
 import de.False.BuildersWand.helper.WorldGuardAPI;
@@ -493,6 +494,10 @@ public class WandEvents implements Listener {
         }
 
         if (!startMaterial.isSolid()) {
+            return;
+        }
+
+        if (MinecraftVersion.equals(MinecraftVersion.V.v1_18) && nms.hasOffhandItem(player)) {
             return;
         }
 

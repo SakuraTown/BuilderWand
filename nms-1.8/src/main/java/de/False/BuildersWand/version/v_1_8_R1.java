@@ -52,4 +52,9 @@ public class v_1_8_R1 implements NMS {
 
         return airBlocks;
     }
+
+    @Override
+    public boolean hasOffhandItem(Player player) {
+        return false;
+    }
 }

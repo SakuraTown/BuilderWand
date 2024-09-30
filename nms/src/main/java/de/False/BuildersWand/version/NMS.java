@@ -23,4 +23,6 @@ public interface NMS {
     Block setBlockData(Block against, Block SelectionBlock);
 
     List<Material> getAirMaterials();
+
+    boolean hasOffhandItem(Player player);
 }

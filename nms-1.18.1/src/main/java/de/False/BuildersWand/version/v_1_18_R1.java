@@ -67,4 +67,11 @@ public class v_1_18_R1 implements NMS {
 
         return airBlocks;
     }
+
+    @Override
+    public boolean hasOffhandItem(Player player) {
+        ItemStack offHand = player.getInventory().getItemInOffHand();
+
+        return offHand.getType() != Material.AIR;
+    }
 }
