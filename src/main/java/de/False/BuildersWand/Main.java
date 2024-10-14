@@ -8,6 +8,7 @@ import de.False.BuildersWand.manager.WandManager;
 import de.False.BuildersWand.utilities.ParticleUtil;
 import de.False.BuildersWand.version.NMS;
 import de.False.BuildersWand.version.v_1_12_R1;
+import de.False.BuildersWand.version.v_1_18_R1;
 import de.False.BuildersWand.version.v_1_8_R1;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -65,6 +66,10 @@ public class Main extends JavaPlugin {
 
         if (MinecraftVersion.atLeast(MinecraftVersion.V.v1_12)) {
             nms = new v_1_12_R1(plugin);
+        }
+
+        if (MinecraftVersion.atLeast(MinecraftVersion.V.v1_18)) {
+            nms = new v_1_18_R1(plugin);
         }
     }
 

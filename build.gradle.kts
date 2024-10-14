@@ -82,6 +82,7 @@ dependencies {
     implementation(project(":nms"))
     implementation(project(":nms-1.8"))
     implementation(project(":nms-1.12.2"))
+    implementation(project(":nms-1.18.1"))
     compileOnly(fileTree("libs"))
 }
 
@@ -145,5 +146,5 @@ publishing {
 java {
     withSourcesJar()
     withJavadocJar()
-    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 }

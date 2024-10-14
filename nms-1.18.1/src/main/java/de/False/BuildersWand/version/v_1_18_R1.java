@@ -72,6 +72,14 @@ public class v_1_18_R1 implements NMS {
     public boolean hasOffhandItem(Player player) {
         ItemStack offHand = player.getInventory().getItemInOffHand();
 
-        return offHand.getType() != Material.AIR;
+        if (offHand == null) {
+            return false;
+        }
+
+        if (offHand.getType() == Material.AIR) {
+            return false;
+        }
+
+        return true;
     }
 }

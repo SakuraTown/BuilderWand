@@ -3,7 +3,6 @@ package de.False.BuildersWand.events;
 import com.bekvon.bukkit.residence.Residence;
 import com.bekvon.bukkit.residence.containers.ResidencePlayer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import de.False.BuildersWand.Commands;
 import de.False.BuildersWand.ConfigurationFiles.Config;
 import de.False.BuildersWand.Main;
 import de.False.BuildersWand.MinecraftVersion;
@@ -39,10 +38,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.Plugin;
-//import world.bentobox.bentobox.BentoBox;
-//import world.bentobox.bentobox.api.user.User;
-//import world.bentobox.bentobox.database.objects.Island;
-//import world.bentobox.bentobox.lists.Flags;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -159,6 +154,11 @@ public class WandEvents implements Listener {
 
         if (!player.hasPermission("buildersWand.use") || (!player.hasPermission("buildersWand.bypass") && !isAllowedToBuildForExternalPlugins(player, selection)) || wand.hasPermission() && !player.hasPermission(wand.getPermission()) || !canBuildHandlerCheck(player, selection)) {
             MessageUtil.sendMessage(player, "noPermissions");
+            return;
+        }
+
+        if (MinecraftVersion.equals(MinecraftVersion.V.v1_18) && nms.hasOffhandItem(player)) {
+            player.sendMessage("使用时副手不能有物品");
             return;
         }
 
@@ -485,7 +485,7 @@ public class WandEvents implements Listener {
         List<String> blacklist = wand.getBlacklist();
         List<String> whitelist = wand.getWhitelist();
 
-        if (startLocation.distance(checkLocation) >= wand.getMaxSize() || !(startMaterial.equals(blockToCheckMaterial)) || startMaterial.toString().endsWith("SLAB") || startMaterial.toString().endsWith("STEP") || maxLocations <= selection.size() || blockToCheckData != startBlockData || selection.contains(blockToCheck) || !ignoreList.contains(relativeBlock) || whitelist.size() == 0 && blacklist.size() > 0 && blacklist.contains(startMaterial.toString()) || blacklist.size() == 0 && whitelist.size() > 0 && !whitelist.contains(startMaterial.toString()) || (!isAllowedToBuildForExternalPlugins(player, checkLocation) && !player.hasPermission("buildersWand.bypass")) || !canBuildHandlerCheck(player, checkLocation) || !player.hasPermission("buildersWand.use") || wand.hasPermission() && !player.hasPermission(wand.getPermission())) {
+        if (startLocation.distance(checkLocation) >= wand.getMaxSize() || !(startMaterial.equals(blockToCheckMaterial)) || startMaterial.toString().endsWith("SLAB") || startMaterial.toString().endsWith("STEP") || maxLocations <= selection.size() || blockToCheckData != startBlockData || selection.contains(blockToCheck) || !ignoreList.contains(relativeBlock) || whitelist.isEmpty() && !blacklist.isEmpty() && blacklist.contains(startMaterial.toString()) || blacklist.isEmpty() && !whitelist.isEmpty() && !whitelist.contains(startMaterial.toString()) || (!isAllowedToBuildForExternalPlugins(player, checkLocation) && !player.hasPermission("buildersWand.bypass")) || !canBuildHandlerCheck(player, checkLocation) || !player.hasPermission("buildersWand.use") || wand.hasPermission() && !player.hasPermission(wand.getPermission())) {
             return;
         }
 
@@ -494,10 +494,6 @@ public class WandEvents implements Listener {
         }
 
         if (!startMaterial.isSolid()) {
-            return;
-        }
-
-        if (MinecraftVersion.equals(MinecraftVersion.V.v1_18) && nms.hasOffhandItem(player)) {
             return;
         }
 
