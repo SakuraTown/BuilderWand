@@ -66,7 +66,7 @@ dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
     compileOnly(kotlin("reflect"))
     compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    compileOnly("me.clip:placeholderapi:2.11.0")
+    compileOnly("me.clip:placeholderapi:2.11.6")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly("com.github.LoneDev6:api-itemsadder:3.0.0")
     compileOnly("org.purpurmc.purpur:purpur-api:1.19.2-R0.1-SNAPSHOT")
