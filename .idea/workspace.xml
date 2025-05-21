@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="1.18 版副手有方块无法使用法杖">
+    <list default="true" id="11ac70b8-ead1-44a4-93f0-d17df7ccd66d" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandEvents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/False/BuildersWand/events/WandEvents.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +73,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/SakuraTown/BuilderWand.git&quot;,
-    &quot;accountId&quot;: &quot;44e7adba-cae3-45d8-b0e1-ae6159e615db&quot;
+    &quot;accountId&quot;: &quot;ee4caf20-66df-4cf1-84d0-c8a311b24aff&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
@@ -99,9 +98,10 @@
     &quot;Kotlin 脚本(测试版).build.gradle.kts.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;1.16&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;1.8&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/EnTIv/Desktop/project/plugin/BuilderWand&quot;,
@@ -115,11 +115,6 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;web.server&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;kotlin-gradle-user-dirs&quot;: [
-      &quot;C:\\Users\\EnTIv\\.gradle&quot;
-    ]
   }
 }</component>
   <component name="RecentsManager">
@@ -209,13 +204,6 @@
         <item itemvalue="Gradle.BuilderWand [shadowJar]" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -360,7 +348,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="1.8" />
                       </list>
                     </value>
                   </entry>
@@ -389,11 +377,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/build.gradle.kts</url>
-          <line>3</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bukkit/bukkit/1.14.4-R0.1-SNAPSHOT/d2eaf53c47967ee479c7471bcc0e49e0066406e9/bukkit-1.14.4-R0.1-SNAPSHOT.jar!/org/bukkit/Particle.class</url>
           <line>16</line>
