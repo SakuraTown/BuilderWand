@@ -8,6 +8,7 @@ import de.False.BuildersWand.manager.WandManager;
 import de.False.BuildersWand.utilities.Metrics;
 import de.False.BuildersWand.utilities.ParticleUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -59,4 +60,8 @@ public class Main extends JavaPlugin {
         inventoryManager.load();
     }
 
+    public boolean hasIA() {
+        Plugin itemsAdder = Bukkit.getPluginManager().getPlugin("ItemsAdder");
+        return itemsAdder != null && itemsAdder.isEnabled();
+    }
 }

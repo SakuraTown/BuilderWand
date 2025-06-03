@@ -18,6 +18,7 @@ import java.util.UUID;
 public class Wand {
     private Component name;
     private List<Component> lore;
+    private Material material;
     private CustomStack customStack;
 
     private List<String> blacklist;
@@ -42,8 +43,26 @@ public class Wand {
 
     }
 
+    public Material getMaterial() {
+        if (material == null) {
+            return Material.BLAZE_ROD;
+        }
+
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
     public ItemStack getRecipeResult() {
-        ItemStack buildersWand = customStack.getItemStack();
+        ItemStack buildersWand;
+
+        if (customStack != null) {
+            buildersWand = customStack.getItemStack();
+        } else {
+            buildersWand = new ItemStack(getMaterial());
+        }
         ItemMeta itemMeta = buildersWand.getItemMeta();
         itemMeta.displayName(getName());
 

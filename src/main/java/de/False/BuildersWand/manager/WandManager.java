@@ -7,6 +7,7 @@ import dev.lone.itemsadder.api.CustomStack;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static de.False.BuildersWand.Main.plugin;
+
 public class WandManager {
     private File file;
     private FileConfiguration config;
@@ -26,6 +29,8 @@ public class WandManager {
     private NMS nms;
 
     public WandManager(Main plugin, NMS nms) {
+        plugin.saveResource("wands.yml", false);
+
         this.file = new File(plugin.getDataFolder(), "wands.yml");
         this.nms = nms;
     }
@@ -45,9 +50,11 @@ public class WandManager {
         String name = Objects.requireNonNull(config.getString(configPrefix + "name"));
         wand.setName(MiniMessage.miniMessage().deserialize(name).decoration(TextDecoration.ITALIC, false));
         wand.setTier(Integer.parseInt(key));
-        if (config.getString(configPrefix + "customStack") != null) {
+        if (config.getString(configPrefix + "customStack") != null && plugin.hasIA()) {
             wand.setCustomStack(CustomStack.getInstance(config.getString(configPrefix + "customStack")));
         }
+        String material = config.getString(configPrefix + "material");
+        wand.setMaterial(material != null ? Material.matchMaterial(material) : Material.BLAZE_ROD);
         wand.setMaxSize(config.getInt(configPrefix + "maxSize"));
         wand.setConsumeItems(config.getBoolean(configPrefix + "consumeItems"));
         wand.setDurability(config.getInt(configPrefix + "durability.amount"));
@@ -79,9 +86,11 @@ public class WandManager {
                 return null;
             }
 
-            if (wand.getCustomStack() == null) {
-                String configPrefix = "wands." + wand.getTier() + ".";
-                wand.setCustomStack(CustomStack.getInstance(config.getString(configPrefix + "customStack")));
+            String configPrefix = "wands." + wand.getTier() + ".";
+            String customStack = config.getString(configPrefix + "customStack");
+
+            if (customStack != null && plugin.hasIA()) {
+                wand.setCustomStack(CustomStack.getInstance(customStack));
             }
 
             Material material = itemStack.getType();
@@ -92,7 +101,7 @@ public class WandManager {
             }
 
             Component name = itemMeta.displayName();
-            if (wand.getName().equals(name) && material == wand.getCustomStack().getItemStack().getType()) {
+            if (wand.getName().equals(name)) {
                 return wand;
             }
         }
@@ -113,7 +122,6 @@ public class WandManager {
 
     public void load() {
         config = YamlConfiguration.loadConfiguration(file);
-        addDefault();
         loadWands();
     }
 

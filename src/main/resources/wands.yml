@@ -1,0 +1,21 @@
+wands:
+  '1':
+    material: BLAZE_ROD
+    name: <color:#8aff91><b>建筑法杖</b></color>
+    lore:
+      - ''
+      - <gray>准备所需材料后
+      - <gray>对准需要复制的方块右键
+      - ''
+      - <gray>范围:<yellow> 6
+    customStack: builder_wand_1
+    particles:
+      enabled: true
+      type: FLAME
+      count: 3
+    maxSize: 3
+    consumeItems: true
+    durability:
+      amount: 2000
+      enabled: true
+      text: '&7耐久度: &e{durability}'
