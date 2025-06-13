@@ -314,7 +314,7 @@ public class WandEvents implements Listener {
             }
             Material itemMaterial = itemStack.getType();
 
-            if (!itemMaterial.equals(blockMaterial) || block.getData() != itemStack.getData().getData()) {
+            if (!itemMaterial.equals(blockMaterial) || block.getData() != itemStack.getData().getData() || isSpecialItem(itemStack)) {
                 continue;
             }
 
@@ -401,7 +401,7 @@ public class WandEvents implements Listener {
                 continue;
             }
             Material itemMaterial = inventoryItemStack.getType();
-            if (!itemMaterial.equals(material) || itemStack.getData().getData() != inventoryItemStack.getData().getData()) {
+            if (!itemMaterial.equals(material) || itemStack.getData().getData() != inventoryItemStack.getData().getData() || isSpecialItem(inventoryItemStack)) {
                 continue;
             }
 
@@ -721,5 +721,14 @@ public class WandEvents implements Listener {
 //        }
         // TODO 临时处理
         return lore.size() - 1;
+    }
+
+    private boolean isSpecialItem(ItemStack item) {
+        if (item == null) return false;
+        ItemMeta meta = item.getItemMeta();
+        return meta != null &&
+                (meta.hasEnchants() ||
+                        meta.hasLore() ||
+                        meta.hasDisplayName());
     }
 }
