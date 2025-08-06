@@ -1,6 +1,7 @@
 package de.False.BuildersWand.events;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.tcoded.folialib.FoliaLib;
 import de.False.BuildersWand.ConfigurationFiles.Config;
 import de.False.BuildersWand.Main;
 import de.False.BuildersWand.NMS;
@@ -52,8 +53,8 @@ public class WandEvents implements Listener {
     private WandManager wandManager;
     private InventoryManager inventoryManager;
     private HashMap<Block, List<Block>> blockSelection = new HashMap<>();
-    private HashMap<Block, List<Block>> replacements = new HashMap<>();
     private HashMap<Block, List<Block>> tmpReplacements = new HashMap<>();
+    private HashMap<Block, List<Block>> replacements = new HashMap<>();
     public static ArrayList<canBuildHandler> canBuildHandlers = new ArrayList<>();
     private List<Material> ignoreList = new ArrayList<>();
 
@@ -76,56 +77,60 @@ public class WandEvents implements Listener {
         Set<Material> ignoreBlockTypes = new HashSet<>(Arrays.asList(Material.WATER, Material.LAVA));
         ignoreBlockTypes.addAll(nms.getAirMaterials());
 
-        //TODO 用 luck 的 bucket 再次优化
-        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+        Main.debug("开始定时器以更新方块选择...");
+        plugin.foliaLib.getScheduler().runTimer(() -> {
             blockSelection.clear();
             tmpReplacements.clear();
+
             for (Player player : Bukkit.getOnlinePlayers()) {
+                // 将每个玩家的处理移到其所在的区域线程中
+                plugin.foliaLib.getScheduler().runAtEntity(player, (task) -> {
+                    Main.debug("正在处理玩家: " + player.getName());
+                    ItemStack mainHand = nms.getItemInHand(player);
+                    Wand wand = wandManager.getWand(mainHand);
 
-                ItemStack mainHand = nms.getItemInHand(player);
-                Wand wand = wandManager.getWand(mainHand);
+                    Block block;
+                    try {
+                        Main.debug("获取玩家目标方块...");
+                        block = player.getTargetBlock(ignoreBlockTypes, 5);
+                        Main.debug("获取玩家目标方块成功: " + block.getType());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return;
+                    }
 
-                Block block;
-                try {
-                    block = player.getTargetBlock(ignoreBlockTypes, 5);
-                } catch (Exception e) {
-                    continue;
-                }
+                    Material blockType = block.getType();
+                    Material blockAbove = player.getLocation().add(0, 1, 0).getBlock().getType();
+                    if (ignoreList.contains(blockType)
+                            || wand == null
+                            || (!ignoreList.contains(blockAbove))
+                    ) {
+                        return;
+                    }
 
-                Material blockType = block.getType();
-                Material blockAbove = player.getLocation().add(0, 1, 0).getBlock().getType();
-                if (ignoreList.contains(blockType)
-                        || wand == null
-                        || (!ignoreList.contains(blockAbove))
-                ) {
-                    continue;
-                }
+                    List<Block> lastBlocks = player.getLastTwoTargetBlocks(ignoreBlockTypes, 5);
+                    if (lastBlocks.size() < 2) {
+                        return;
+                    }
 
-                List<Block> lastBlocks = player.getLastTwoTargetBlocks(ignoreBlockTypes, 5);
-                if (lastBlocks.size() < 2) {
-                    continue;
-                }
+                    BlockFace blockFace = lastBlocks.get(1).getFace(lastBlocks.get(0));
+                    int itemCount = getItemCount(player, block, mainHand);
 
-                BlockFace blockFace = lastBlocks.get(1).getFace(lastBlocks.get(0));
+                    blockSelection.put(block, new ArrayList<>());
+                    tmpReplacements.put(block, new ArrayList<>());
 
-                int itemCount = getItemCount(player, block, mainHand);
+                    setBlockSelection(player, blockFace, itemCount, block, block, wand);
+                    replacements = tmpReplacements;
+                    List<Block> selection = blockSelection.get(block);
 
-                blockSelection.put(block, new ArrayList<>());
-                tmpReplacements.put(block, new ArrayList<>());
-
-                setBlockSelection(player, blockFace, itemCount, block, block, wand);
-                replacements = tmpReplacements;
-                List<Block> selection = blockSelection.get(block);
-
-                if (wand.isParticleEnabled()) {
-                    Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                    if (wand.isParticleEnabled()) {
                         for (Block selectionBlock : selection) {
                             renderBlockOutlines(blockFace, selectionBlock, selection, wand, player);
                         }
-                    });
-                }
+                    }
+                });
             }
-        }, 0L, 10);
+        }, 1L, 10);
     }
 
     @EventHandler
@@ -179,8 +184,15 @@ public class WandEvents implements Listener {
             customItemStack = ItemsAdder.getCustomBlock(against);
         }
 
+        // 获取第一个方块的位置作为参考位置
+        if (selection.isEmpty()) {
+            return;
+        }
+
+        Location referenceLocation = selection.get(0).getLocation();
+
         ItemStack finalCustomItemStack = customItemStack;
-        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+        plugin.foliaLib.getScheduler().runAtLocationLater(referenceLocation, () -> {
             for (Block selectionBlock : selection) {
                 if (getExternalPlugin("ItemsAdder") != null && ItemsAdder.isCustomBlock(against)) {
                     ItemsAdder.placeCustomBlock(selectionBlock.getLocation(), finalCustomItemStack);
@@ -188,7 +200,6 @@ public class WandEvents implements Listener {
                     selectionBlock.setType(blockType);
                     selectionBlock = nms.setBlockData(against, selectionBlock);
                 }
-
 
                 Plugin coreProtect = getExternalPlugin("CoreProtect");
                 if (coreProtect != null) {
@@ -205,7 +216,6 @@ public class WandEvents implements Listener {
                          | InvocationTargetException e) {
                 }
             }
-
         }, 1L);
 
         Integer amount = selection.size();

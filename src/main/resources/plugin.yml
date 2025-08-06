@@ -4,6 +4,7 @@ version: 1.0
 main: de.False.BuildersWand.Main
 softdepend: [Lands, ItemsAdder, WorldGuard, Towny, GriefPrevention, Factions, mcMMO, BentoBox, PlotSquared, CoreProtect, SuperiorSkyblock2, Residence]
 api-version: 1.13
+folia-supported: true
 commands:
   builderswand:
     description: The general BuildersWand command.

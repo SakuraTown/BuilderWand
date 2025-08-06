@@ -58,6 +58,8 @@ repositories {
         name = "codemc-repo"
         url = uri("https://repo.codemc.org/repository/maven-public/")
     }
+
+    maven { url = uri("https://repo.tcoded.com/releases") }
 }
 
 dependencies {
@@ -73,6 +75,8 @@ dependencies {
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.1-SNAPSHOT")
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.0.1-SNAPSHOT")
     compileOnly("net.coreprotect:coreprotect:2.14.2")
+    implementation("com.tcoded:FoliaLib:0.5.1")
+
     compileOnly(fileTree("libs"))
 }
 
@@ -82,6 +86,9 @@ tasks {
             destinationDirectory.set(file(it.toString()))
         }
         archiveFileName.set("${project.name}-${project.version}.jar")
+
+        val path = "${rootProject.group}.${rootProject.name.toLowerCase()}.lib"
+        relocate("com.tcoded.folialib", "$path.folialib")
     }
 
     jar {

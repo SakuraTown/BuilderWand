@@ -1,5 +1,6 @@
 package de.False.BuildersWand;
 
+import com.tcoded.folialib.FoliaLib;
 import de.False.BuildersWand.ConfigurationFiles.Config;
 import de.False.BuildersWand.ConfigurationFiles.Locales;
 import de.False.BuildersWand.events.WandEvents;
@@ -25,12 +26,19 @@ public class Main extends JavaPlugin {
     private NMS nms = new NMS(this);
     private WandManager wandManager;
     private InventoryManager inventoryManager;
+    private boolean debug = false;
+
+    public FoliaLib foliaLib;
 
     @Override
     public void onEnable() {
+        debug = false;
+
         plugin = this;
         wandManager = new WandManager(this, nms);
         inventoryManager = new InventoryManager(this, nms);
+        foliaLib = new FoliaLib(this);
+
         try {
             Class.forName("com.google.gson.JsonParser");
         } catch (ClassNotFoundException e) {
@@ -41,6 +49,11 @@ public class Main extends JavaPlugin {
         particleUtil = new ParticleUtil(nms, config);
         registerEvents();
         registerCommands();
+    }
+
+    @Override
+    public void onDisable() {
+        foliaLib.getScheduler().cancelAllTasks();
     }
 
     private void registerCommands() {
@@ -63,5 +76,11 @@ public class Main extends JavaPlugin {
     public boolean hasIA() {
         Plugin itemsAdder = Bukkit.getPluginManager().getPlugin("ItemsAdder");
         return itemsAdder != null && itemsAdder.isEnabled();
+    }
+
+    public static void debug(String message) {
+        if (plugin.debug) {
+            plugin.getLogger().info(message);
+        }
     }
 }
